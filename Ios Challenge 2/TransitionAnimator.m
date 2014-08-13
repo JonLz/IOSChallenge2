@@ -10,6 +10,8 @@
 #import "UIHandler.h"
 
 @implementation TransitionAnimator
+
+// Total time for the entire transition
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
     return 0.5f;
 }
@@ -25,6 +27,7 @@
     CGRect offScreenRightFrame = CGRectMake(320, 0, 320, 568);
     CGRect offScreenLeftFrame = CGRectMake(-320, 0, 320, 568);
     
+    // Modally presenting the second view controller
     if (self.presenting) {
         fromViewController.view.userInteractionEnabled = NO;
         
@@ -40,6 +43,7 @@
             [transitionContext completeTransition:YES];
         }];
     }
+    // Dismissing the second view controller
     else {
         toViewController.view.userInteractionEnabled = YES;
         

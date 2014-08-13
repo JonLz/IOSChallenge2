@@ -11,7 +11,5 @@
 #import "TransitionAnimator.h"
 
 @interface SecondViewController : UIViewController  <UIViewControllerTransitioningDelegate>
-
-// The default background gradient
 @property (nonatomic,strong) CAGradientLayer *gradient;
 @end

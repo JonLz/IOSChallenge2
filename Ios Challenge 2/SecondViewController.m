@@ -42,6 +42,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    // Transition background gradient color to green
     [handler transitionGradient:self.gradient fromColors:[handler blueGradientInView:self.view].colors  toColors:[handler greenGradientInView:self.view].colors];
 }
 

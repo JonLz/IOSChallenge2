@@ -39,16 +39,24 @@
 
 - (void)goForward
 {
+    // Create the new view controller which we will modally present with a custom transition
+    // See TransitionAnimator.h for more details
     SecondViewController *vc = [[SecondViewController alloc] init];
     vc.transitioningDelegate = self;
     vc.modalPresentationStyle = UIModalPresentationCustom;
+    
+    // Make sure the new view controller's gradient is the same for a seamless transition animation
     vc.gradient.colors = self.gradient.colors;
+    
+    // Flag presenting so the view controller knows to transition its gradient back upon viewWillAppear
     presenting = YES;
+    
     [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    // Only transition the gradient from green to blue if we've presented the second view controller
     if (presenting) {
         [handler transitionGradient:self.gradient fromColors:[handler greenGradientInView:self.view].colors toColors:[handler blueGradientInView:self.view].colors];
     }

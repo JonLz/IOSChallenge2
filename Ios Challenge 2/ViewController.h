@@ -11,7 +11,5 @@
 #import "UIHandler.h"
 
 @interface ViewController : UIViewController <UIViewControllerTransitioningDelegate>
-
-// The default background gradient
 @property (nonatomic,strong) CAGradientLayer *gradient;
 @end
