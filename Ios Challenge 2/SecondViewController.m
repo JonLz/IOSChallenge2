@@ -1,59 +1,50 @@
 //
-//  ViewController.m
+//  SecondViewController.m
 //  Ios Challenge 2
 //
 //  Created by Jon on 8/13/14.
 //  Copyright (c) 2014 Reddit. All rights reserved.
 //
 
-#import "ViewController.h"
 #import "SecondViewController.h"
+#import "ViewController.h"
 
-@interface ViewController ()
+@interface SecondViewController ()
 
 @end
 
-@implementation ViewController
+@implementation SecondViewController
 {
     UIHandler *handler;
-    BOOL presenting;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     handler = [UIHandler sharedInstance];
-
-    self.gradient = [handler blueGradientInView:self.view];
+    
+    self.gradient = [handler greenGradientInView:self.view];
     [self.view.layer insertSublayer:self.gradient atIndex:0];
     
     UILabel *label = [handler labelInView:self.view];
-    label.text = @"Home View Controller";
+    label.text = @"Second View Controller";
     [self.view addSubview:label];
     
     UIButton *button = [handler buttonInView:self.view];
-    [button setTitle:@"Go Forward" forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(goForward) forControlEvents:UIControlEventTouchUpInside];
+    [button setTitle:@"Go Back" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
 }
-
-- (void)goForward
+- (void)goBack
 {
-    SecondViewController *vc = [[SecondViewController alloc] init];
-    vc.transitioningDelegate = self;
-    vc.modalPresentationStyle = UIModalPresentationCustom;
-    vc.gradient.colors = self.gradient.colors;
-    presenting = YES;
-    [self presentViewController:vc animated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (presenting) {
-        [handler transitionGradient:self.gradient fromColors:[handler greenGradientInView:self.view].colors toColors:[handler blueGradientInView:self.view].colors];
-    }
-    presenting = NO;
+    [handler transitionGradient:self.gradient fromColors:[handler blueGradientInView:self.view].colors  toColors:[handler greenGradientInView:self.view].colors];
 }
+
 
 #pragma mark
 #pragma mark View Transition Handlers
@@ -62,13 +53,12 @@
                                                                       sourceController:(UIViewController *)source {
     
     TransitionAnimator *animator = [TransitionAnimator new];
-    animator.presenting = YES;
+    animator.presenting = NO;
     return animator;
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
     TransitionAnimator *animator = [TransitionAnimator new];
-    [self viewWillAppear:YES];
     return animator;
 }
 
